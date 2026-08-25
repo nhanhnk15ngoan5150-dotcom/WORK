@@ -78,7 +78,34 @@ function App() {
   const [aiOpen, setAiOpen] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  const [activePage, setActivePage] = useState("home")
+  const validPages = [
+    "home",
+    "sales",
+    "products",
+    "stores",
+    "statistics",
+    "tools",
+    "reports",
+    "analysis",
+    "data-center"
+  ]
+
+  const [activePage, setActivePage] = useState(() => {
+    const savedPage = sessionStorage.getItem("activePage")
+
+    return validPages.includes(savedPage)
+      ? savedPage
+      : "home"
+  })
+
+  // 2A. 保存当前页面
+  useEffect(() => {
+    sessionStorage.setItem(
+      "activePage",
+      activePage
+    )
+  }, [activePage])
+
 
   const [dashboardData, setDashboardData] = useState(null)
   const [dashboardLoading, setDashboardLoading] = useState(true)
