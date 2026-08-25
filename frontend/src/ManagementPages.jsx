@@ -626,7 +626,7 @@ export function DataCenterPage({
           <p>检查当前数据范围、维度数量及前端使用的只读字段契约。</p>
         </div>
         <div className="management-actions">
-          <button type="button" onClick={onRefresh} disabled={loading}>重新同步</button>
+          <button type="button" onClick={onRefresh} disabled={loading}>刷新数据</button>
           <button type="button" onClick={exportJson} disabled={!analytics}>导出 JSON</button>
         </div>
       </section>
@@ -667,8 +667,8 @@ export function DataCenterPage({
               <small>SQLite products</small>
             </article>
             <article>
-              <span>同步状态</span>
-              <strong>{loading ? "同步中" : error ? "异常" : "正常"}</strong>
+              <span>加载状态</span>
+              <strong>{loading ? "加载中" : error ? "异常" : "正常"}</strong>
               <small>{error || `更新至 ${analytics?.latest_data_date || "--"}`}</small>
             </article>
           </div>
