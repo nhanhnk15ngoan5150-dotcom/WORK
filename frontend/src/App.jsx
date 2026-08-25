@@ -362,6 +362,7 @@ function App() {
         )
 
         if (active) {
+          setAnalyticsData(null)
           setAnalyticsError(
             "筛选经营数据加载失败"
           )
