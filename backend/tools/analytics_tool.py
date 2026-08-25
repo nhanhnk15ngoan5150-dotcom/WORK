@@ -441,7 +441,7 @@ def get_filtered_analytics_data(
                 f"{latest_month_start.year}年"
                 f"{latest_month_start.month}月"
                 if normalized_months == 1
-                else "最近3个月"
+                else f"最近{normalized_months}个月"
             ),
             "start_date": period_start.isoformat(),
             "end_date": period_end.isoformat(),

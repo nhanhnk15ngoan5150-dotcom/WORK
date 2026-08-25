@@ -82,6 +82,25 @@ class FilteredAnalyticsContractTest(unittest.TestCase):
         self.assertEqual(len(result["product_ranking"]), 2)
         self.assertEqual(len(result["store_ranking"]), 2)
 
+    # 3. 锁定两个月周期标签
+    def test_two_month_scope_uses_matching_period_label(self):
+        with TemporaryDirectory() as temporary_directory:
+            database_path = Path(temporary_directory) / "analytics.db"
+            self._create_database(database_path)
+
+            result = get_filtered_analytics_data(
+                months=2,
+                db_file=database_path,
+            )
+
+        self.assertTrue(result["success"])
+        self.assertEqual(result["period"]["months"], 2)
+        self.assertEqual(result["period"]["label"], "最近2个月")
+        self.assertEqual(result["period"]["start_date"], "2026-06-01")
+        self.assertEqual(result["period"]["end_date"], "2026-08-01")
+        self.assertEqual(result["summary"]["total_sales"], 330.0)
+        self.assertEqual(result["summary"]["order_count"], 3)
+
     def test_filters_and_three_month_scope_are_applied_together(self):
         with TemporaryDirectory() as temporary_directory:
             database_path = Path(temporary_directory) / "analytics.db"
