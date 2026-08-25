@@ -84,9 +84,6 @@ function App() {
   const [dashboardLoading, setDashboardLoading] = useState(true)
   const [dashboardError, setDashboardError] = useState("")
 
-  const [productData, setProductData] = useState(null)
-  const [productLoading, setProductLoading] = useState(true)
-  const [productError, setProductError] = useState("")
 
   const [storeData, setStoreData] = useState(null)
   const [storeLoading, setStoreLoading] = useState(true)
@@ -229,66 +226,7 @@ function App() {
     }
   }, [])
 
-  // 6. 加载商品真实数据
-  useEffect(() => {
-    let active = true
 
-  const loadProductData = async () => {
-    try {
-      const response = await fetch(
-        "http://127.0.0.1:8001/api/products"
-      )
-
-      if (!response.ok) {
-        throw new Error(
-          `HTTP ${response.status}`
-        )
-      }
-
-      const data = await response.json()
-
-      if (!data.success) {
-        throw new Error(
-          data.message || "商品数据加载失败"
-        )
-      }
-
-      if (active) {
-        setProductData(data)
-        setProductError("")
-      }
-
-    } catch (error) {
-
-      console.error(
-        "商品数据请求失败:",
-        error
-      )
-
-      if (active) {
-        setProductError(
-          "商品数据加载失败"
-        )
-      }
-
-    } finally {
-
-      if (active) {
-        setProductLoading(false)
-      }
-
-    }
-  }
-
-
-  loadProductData()
-
-
-  return () => {
-    active = false
-  }
-
-}, [])
 
 
   // 6A. 加载门店真实数据
@@ -708,9 +646,8 @@ function App() {
   )
 
   const productRankingSource = (
-    analyticsData?.product_ranking
-    || productData?.ranking
-    || []
+      analyticsData?.product_ranking
+      || []
   )
   const productRanking = [
     ...productRankingSource
@@ -730,7 +667,7 @@ function App() {
         top_product: analyticsSummary.top_product?.product_name,
         top_product_sales: analyticsSummary.top_product?.total_sales
       }
-    : productData?.summary || {}
+    : {}
 
   const formatNumber = (
     value,
@@ -2031,11 +1968,11 @@ function App() {
 
 <span>
 {
-productLoading
+analyticsLoading
 ?
 "正在加载商品数据"
 :
-productError
+analyticsError
 ||
 "基于 SQLite 商品销售数据"
 }
