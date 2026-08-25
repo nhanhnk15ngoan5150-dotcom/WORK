@@ -1174,6 +1174,7 @@ function App() {
               </button>
               <NotificationsPanel
                 open={notificationsOpen}
+                latestDataDate={latestDataDate}
                 onClose={() => setNotificationsOpen(false)}
               />
             </div>

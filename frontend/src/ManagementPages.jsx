@@ -745,11 +745,16 @@ export function HelpPanel({
 
 export function NotificationsPanel({
   open,
+  latestDataDate,
   onClose
 }) {
   const [read, setRead] = useState([])
   const notices = [
-    ["data", "经营数据已更新", "最新数据已同步至 2026-07-31"],
+    [
+      "data",
+      "经营数据已更新",
+      `最新数据已更新至 ${latestDataDate || "--"}`
+    ],
     ["report", "门店报表可用", "现在可以按筛选条件导出门店与商品报表"],
     ["ai", "AI 助手已就绪", "可继续使用当前本地会话上下文"],
   ]
